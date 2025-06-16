@@ -4,11 +4,11 @@ import Struktury.Polozenie;
 import Struktury.Swiat;
 import Struktury.Zwierze;
 
-public class Wilk extends Zwierze {
-    public Wilk(Swiat swiat, Polozenie polozenie) {
+public class Owca extends Zwierze {
+    public Owca(Swiat swiat, Polozenie polozenie) {
         super(swiat, polozenie);
-        this.sila = 9;
+        this.sila = 4;
         this.inicjatywa = 4;
-        this.symbol = 'W';
+        this.symbol = 'O';
     }
 }

@@ -12,6 +12,7 @@ public abstract class Organizm {
     protected Organizm(Swiat swiat, Polozenie polozenie) {
         this.swiat = swiat;
         this.polozenie = polozenie;
+        swiat.dodajOrganizmNaListe(this);
     }
 
     protected abstract void akcja();
@@ -21,7 +22,7 @@ public abstract class Organizm {
     }
 
     protected void rysowanie(){
-        System.out.println(symbol + " ");
+        System.out.print(symbol + " ");
     }
 
     public int getSila() {

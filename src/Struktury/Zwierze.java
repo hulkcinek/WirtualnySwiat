@@ -10,7 +10,11 @@ public abstract class Zwierze extends Organizm{
 
 
     protected void akcja(){
-        //przesuwanie na losowe sasiednie pole
+        Przesuniecie wylosowane = Przesuniecie.losujPrzesuniecie();
+        wylosowane.pomnozWektor(zasiegRuchu);
+        //sprawdzenie, czy nastąpi kolizja
+        this.polozenie.przesun(wylosowane);
+        swiat.zaktualizujPlansze();
     }
 
     @Override

@@ -1,10 +1,50 @@
 package Struktury;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Polozenie {
     private int x;
     private int y;
+
+    public Polozenie(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static Polozenie losujPolozenie(Swiat swiat) {
+        Random random = new Random();
+        Polozenie polozenie = new Polozenie(-1, -1);
+        do {
+            polozenie.setY(random.nextInt(Swiat.getWYSOKOSC()));
+            polozenie.setX(random.nextInt(Swiat.getSZEROKOSC()));
+        } while (swiat.czyPolozenieWolne(polozenie));
+        return polozenie;
+    }
+
+    //zakładamy, że jeśli wylosowane pole do przesunięcia jest poza planszą to zwierze się nie poruszy
+    public void przesun(Przesuniecie przesuniecie){
+        if (!Swiat.czyPoleNaPlanszy(this, przesuniecie)) return;
+
+        this.y += przesuniecie.getDy();
+        this.x += przesuniecie.getDx();
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     @Override
     public String toString() {
