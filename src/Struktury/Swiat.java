@@ -44,7 +44,10 @@ public class Swiat {
         rysujSwiat();
         uporzadkujOrganizmyNaLiscie();
         zaktualizujPlansze();
-        organizmy.forEach(Organizm::akcja);
+        for (Organizm organizm : organizmy) {
+            organizm.akcja();
+        }
+        System.out.printf("Na swiecie pozostaje %s organizmow", organizmy.size());
     }
 
     public void zaktualizujPlansze() {
@@ -53,13 +56,26 @@ public class Swiat {
             Polozenie polozenie = organizm.getPolozenie();
             plansza[polozenie.getY()][polozenie.getX()] = organizm;
         });
+        long iloscOrganizmow = organizmy.size();
+        long iloscZajetychPol = organizmy.stream().map(Organizm::getPolozenie).distinct().count();
+        if (iloscOrganizmow != iloscZajetychPol) System.out.println("Niezgodnosc: " + iloscZajetychPol + " " + iloscOrganizmow);
+    }
+
+    public Organizm wezElementZPlanszyWPolozeniu(Polozenie polozenie){
+        return plansza[polozenie.getY()][polozenie.getX()];
+    }
+
+    public void umieraOrganizm(Organizm umierajacy){
+        organizmy.remove(umierajacy);
+        System.out.printf("Umiera organizm: %s, ktory znajdowal sie na pozycji: %s\n", umierajacy.symbol, umierajacy.getPolozenie());
+        zaktualizujPlansze();
     }
 
     private void uporzadkujOrganizmyNaLiscie() {
         organizmy.sort(Comparator.comparingInt(Organizm::getInicjatywa).reversed());
     }
 
-    private void rysujSwiat(){
+    public void rysujSwiat(){
         for (Organizm[] wiersz : plansza){
             for (Organizm pole : wiersz){
                 if (pole == null) System.out.print(". ");
@@ -71,6 +87,7 @@ public class Swiat {
 
     public void dodajOrganizmNaListe(Organizm organizm){
         organizmy.add(organizm);
+        uporzadkujOrganizmyNaLiscie();
         zaktualizujPlansze();
     }
 

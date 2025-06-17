@@ -46,6 +46,10 @@ public class Polozenie {
         return y;
     }
 
+    public Polozenie kopiuj(){
+        return new Polozenie(this.x, this.y);
+    }
+
     @Override
     public String toString() {
         return String.format("(%d, %d)", x, y);

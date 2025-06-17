@@ -17,8 +17,12 @@ public abstract class Organizm {
 
     protected abstract void akcja();
 
-    protected void kolizja(Organizm organizm){
-        //walka
+    protected void kolizja(Organizm atakowany){
+        if (this.sila >= atakowany.getSila()){
+            swiat.umieraOrganizm(atakowany);
+        } else {
+            swiat.umieraOrganizm(this);
+        }
     }
 
     protected void rysowanie(){
