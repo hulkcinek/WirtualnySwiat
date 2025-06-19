@@ -1,7 +1,6 @@
 package Struktury;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Polozenie {
     private int x;
