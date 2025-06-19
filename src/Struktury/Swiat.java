@@ -8,7 +8,7 @@ import java.util.function.BiFunction;
 
 public class Swiat {
 
-    public boolean debug = false;
+    public boolean DEBUG = false;
 
     public static void main(String[] args) {
         new Swiat().start();
@@ -36,6 +36,7 @@ public class Swiat {
         List<BiFunction<Swiat, Polozenie, Organizm>> konstruktory = List.of(
                 Wilk::new
                 ,Owca::new
+                ,Antylopa::new
                 ,Trawa::new
         );
         Random random = new Random();

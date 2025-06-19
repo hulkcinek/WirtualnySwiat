@@ -1,5 +1,6 @@
 package Struktury;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -25,9 +26,21 @@ public class Przesuniecie {
 
     //zakładamy, że przez "sąsiednie pola" rozumiemy tylko te stykające się ze sobą krawędziami (nie rogami)
 
+    public static List<Przesuniecie> stworzRuchy(int zasiegRuchu){
+        List<Przesuniecie> ruchy = new ArrayList<>();
+        for (int y = -zasiegRuchu; y <= zasiegRuchu; y++) {
+            for (int x = -zasiegRuchu; x <= zasiegRuchu; x++) {
+                ruchy.add(new Przesuniecie(x, y));
+            }
+        }
+        ruchy.remove(new Przesuniecie(0, 0));
+        return ruchy;
+    }
+    
     public static Przesuniecie losujPrzesuniecie(){
         Random random = new Random();
-        return RUCHY.get(random.nextInt(RUCHY.size()));
+        List<Przesuniecie> ruchy = stworzRuchy(1);
+        return ruchy.get(random.nextInt(ruchy.size()));
     }
     public void pomnozWektor(int n){
         this.dx *= n;

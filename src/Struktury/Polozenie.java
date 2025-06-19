@@ -23,11 +23,11 @@ public class Polozenie {
     }
 
     public List<Polozenie> znajdzWszystkieWolnePolozeniaDookola(Swiat swiat) {
-        return znajdzWszystkiePolozeniaDookola().stream().filter(swiat::czyPolozenieWolne).toList();
+        return znajdzWszystkiePolozeniaDookola(1).stream().filter(swiat::czyPolozenieWolne).toList();
     }
 
-        public List<Polozenie> znajdzWszystkiePolozeniaDookola(){
-        List<Przesuniecie> przesuniecia = Przesuniecie.RUCHY;
+        public List<Polozenie> znajdzWszystkiePolozeniaDookola(int zasieg){
+        List<Przesuniecie> przesuniecia = Przesuniecie.stworzRuchy(zasieg);
         return przesuniecia.stream()
                 .filter(przesuniecie -> Swiat.czyPoleNaPlanszy(this, przesuniecie))
                 .map(przesuniecie -> {

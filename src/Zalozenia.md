@@ -7,6 +7,10 @@
   - mała litera oznacza roślinę
   - wielka litera oznacza zwierzę
 - zapis położeń i przesunięć to odpowiednio (x, y) i [x, y]
+- ruch na ukos jest liczony jako jeden "krok"
+- próba wykonania ruchu zawsze kończy się przesunięciem (niemożliwy jest powrót na to samo miejsce w trakcie jednej tury)
+- zasieg ruchu 2 oznacza, że zwierzę może przejść na jakiekolwiek pole, do którego może dostać się w maksymalnie dwa ruchy, oznacza to, że wykonanych może zostać mniej "kroków" niż pozwala na to zasięg ruchu
 
 # TODO
 - po ataku zakończonym sukcesem atakujący przesuwa się na pole zajmowane przez pokonane zwierzę
+- dokończyć Antylopę

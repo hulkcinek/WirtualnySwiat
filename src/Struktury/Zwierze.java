@@ -1,9 +1,10 @@
 package Struktury;
 
-import java.lang.reflect.Constructor;
 import java.util.*;
 
 public abstract class Zwierze extends Organizm{
+
+    protected int zasiegRuchu = 1;
 
     protected Zwierze(Swiat swiat, Polozenie polozenie) {
         super(swiat, polozenie);
@@ -13,7 +14,7 @@ public abstract class Zwierze extends Organizm{
 
     protected void akcja(){
         Random random = new Random();
-        List<Polozenie> dostepnePolozenia = polozenie.znajdzWszystkiePolozeniaDookola();
+        List<Polozenie> dostepnePolozenia = polozenie.znajdzWszystkiePolozeniaDookola(zasiegRuchu);
         Polozenie wylosowanePolozenie = dostepnePolozenia.get(random.nextInt(dostepnePolozenia.size()));
         Organizm zawartoscWylosowanegoPolozenia = swiat.wezElementZPlanszyWPolozeniu(wylosowanePolozenie);
 
@@ -26,7 +27,7 @@ public abstract class Zwierze extends Organizm{
             this.polozenie = wylosowanePolozenie;
         }
         swiat.zaktualizujPlansze();
-        if (swiat.debug)
+        if (swiat.DEBUG)
             swiat.rysujSwiat();
     }
 
