@@ -1,12 +1,14 @@
 package Struktury;
 
-import Zwierzeta.Owca;
-import Zwierzeta.Wilk;
+import Zwierzeta.*;
+import Rosliny.*;
 
 import java.util.*;
 import java.util.function.BiFunction;
 
 public class Swiat {
+
+    public boolean debug = false;
 
     public static void main(String[] args) {
         new Swiat().start();
@@ -15,25 +17,28 @@ public class Swiat {
     private static final int WYSOKOSC = 10;
     private static final int SZEROKOSC= 10;
     List<Organizm> organizmy = new ArrayList<>();
+    List<Organizm> organizmyPowstaleWTejTurze = new ArrayList<>();
     Organizm[][] plansza = new Organizm[WYSOKOSC][SZEROKOSC];
 
 
     private void start() {
-        stworzOrganizmy();
         Scanner scanner = new Scanner(System.in);
+        stworzOrganizmy();
+        rysujSwiat();
         while (true){
-            wykonajTure();
             scanner.next();
+            wykonajTure();
         }
     }
 
     private void stworzOrganizmy() {
+        final int iloscZwierzatDodawanych = 15;
         List<BiFunction<Swiat, Polozenie, Organizm>> konstruktory = List.of(
-                Wilk::new,
-                Owca::new
+                Wilk::new
+                ,Owca::new
+                ,Trawa::new
         );
         Random random = new Random();
-        final int iloscZwierzatDodawanych = 10;
         for (int i = 0; i < iloscZwierzatDodawanych; i++) {
             konstruktory.get(random.nextInt(konstruktory.size()))
                     .apply(this, Polozenie.losujPolozenie(this));
@@ -41,18 +46,31 @@ public class Swiat {
     }
 
     private void wykonajTure(){
-        rysujSwiat();
         uporzadkujOrganizmyNaLiscie();
         zaktualizujPlansze();
-        for (Organizm organizm : organizmy) {
+        for (int i = 0; i < organizmy.size(); i++) {
+            Organizm organizm = organizmy.get(i);
             organizm.akcja();
         }
-        System.out.printf("Na swiecie pozostaje %s organizmow", organizmy.size());
+        przeniesNoweOrganizmyNaDocelowaListe();
+        zaktualizujWiekOrganizmow();
+        System.out.printf("Na swiecie pozostaje %s organizmow\n", organizmy.size());
+        rysujSwiat();
+    }
+
+    private void przeniesNoweOrganizmyNaDocelowaListe() {
+        organizmy.addAll(organizmyPowstaleWTejTurze);
+        organizmyPowstaleWTejTurze.clear();
+        uporzadkujOrganizmyNaLiscie();
     }
 
     public void zaktualizujPlansze() {
         plansza = new Organizm[WYSOKOSC][SZEROKOSC];
         organizmy.forEach(organizm -> {
+            Polozenie polozenie = organizm.getPolozenie();
+            plansza[polozenie.getY()][polozenie.getX()] = organizm;
+        });
+        organizmyPowstaleWTejTurze.forEach(organizm -> {
             Polozenie polozenie = organizm.getPolozenie();
             plansza[polozenie.getY()][polozenie.getX()] = organizm;
         });
@@ -72,17 +90,32 @@ public class Swiat {
     }
 
     private void uporzadkujOrganizmyNaLiscie() {
-        organizmy.sort(Comparator.comparingInt(Organizm::getInicjatywa).reversed());
+        organizmy.sort(Comparator
+                .comparingInt(Organizm::getInicjatywa).reversed()
+                .thenComparing(Organizm::getWiek).reversed());
     }
 
     public void rysujSwiat(){
-        for (Organizm[] wiersz : plansza){
-            for (Organizm pole : wiersz){
+        System.out.print("  ");
+        for (int i = 0; i < SZEROKOSC; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+
+        for (int y = 0; y < plansza.length; y++) {
+            Organizm[] wiersz = plansza[y];
+            System.out.print(y + " ");
+            for (int x = 0; x < wiersz.length; x++) {
+                Organizm pole = wiersz[x];
                 if (pole == null) System.out.print(". ");
                 else pole.rysowanie();
             }
             System.out.println();
         }
+    }
+
+    private void zaktualizujWiekOrganizmow() {
+        organizmy.forEach(Organizm::zwiekszWiek);
     }
 
     public void dodajOrganizmNaListe(Organizm organizm){
@@ -92,7 +125,7 @@ public class Swiat {
     }
 
     public boolean czyPolozenieWolne(Polozenie polozenie){
-        return plansza[polozenie.getY()][polozenie.getX()] != null;
+        return plansza[polozenie.getY()][polozenie.getX()] == null;
     }
 
     public static int getWYSOKOSC() {
@@ -107,5 +140,12 @@ public class Swiat {
         int sprawdzaneY = polozenie.getY() + przesuniecie.getDy();
         int sprawdzaneX = polozenie.getX() + przesuniecie.getDx();
         return 0 <= sprawdzaneY && 0 <= sprawdzaneX && sprawdzaneY < WYSOKOSC && sprawdzaneX < SZEROKOSC;
+    }
+
+    public void rodziSieOrganizm(Organizm organizm) {
+        organizmy.remove(organizm);
+        System.out.printf("Powstaje organizm %s w polozeniu %s\n", organizm.symbol, organizm.polozenie);
+        organizmyPowstaleWTejTurze.add(organizm);
+        zaktualizujPlansze();
     }
 }

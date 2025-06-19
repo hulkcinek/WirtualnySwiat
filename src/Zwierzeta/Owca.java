@@ -11,4 +11,9 @@ public class Owca extends Zwierze {
         this.inicjatywa = 4;
         this.symbol = 'O';
     }
+
+    @Override
+    protected Zwierze stworzDziecko(Swiat swiat, Polozenie polozenie) {
+        return new Owca(swiat, polozenie);
+    }
 }

@@ -8,6 +8,7 @@ public abstract class Organizm {
     protected Polozenie polozenie;
     protected Swiat swiat;
     protected char symbol;
+    protected int wiek = 0;
 
     protected Organizm(Swiat swiat, Polozenie polozenie) {
         this.swiat = swiat;
@@ -47,6 +48,14 @@ public abstract class Organizm {
 
     public char getSymbol() {
         return symbol;
+    }
+
+    public int getWiek() {
+        return wiek;
+    }
+
+    public void zwiekszWiek() {
+        this.wiek++;
     }
 }
 

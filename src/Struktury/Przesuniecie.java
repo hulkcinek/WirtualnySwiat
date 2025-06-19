@@ -5,6 +5,16 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Przesuniecie {
+    public static final List<Przesuniecie> RUCHY = List.of(
+            new Przesuniecie(0, 1),
+            new Przesuniecie(0, -1),
+            new Przesuniecie(1, 0),
+            new Przesuniecie(-1, 0),
+            new Przesuniecie(-1, -1),
+            new Przesuniecie(-1, 1),
+            new Przesuniecie(1, -1),
+            new Przesuniecie(1, 1)
+    );
     private int dx;
     private int dy;
 
@@ -13,29 +23,23 @@ public class Przesuniecie {
         this.dy = dy;
     }
 
-    public int getDx() {
-        return dx;
+    //zakładamy, że przez "sąsiednie pola" rozumiemy tylko te stykające się ze sobą krawędziami (nie rogami)
+
+    public static Przesuniecie losujPrzesuniecie(){
+        Random random = new Random();
+        return RUCHY.get(random.nextInt(RUCHY.size()));
+    }
+    public void pomnozWektor(int n){
+        this.dx *= n;
+        this.dy *= n;
     }
 
     public int getDy() {
         return dy;
     }
 
-    //zakładamy, że przez "sąsiednie pola" rozumiemy tylko te stykające się ze sobą krawędziami (nie rogami)
-    public static Przesuniecie losujPrzesuniecie(){
-        Random random = new Random();
-        List<Przesuniecie> ruchy = List.of(
-                new Przesuniecie(0, 1),
-                new Przesuniecie(0, -1),
-                new Przesuniecie(1, 0),
-                new Przesuniecie(-1, 0)
-        );
-        return ruchy.get(random.nextInt(ruchy.size()));
-    }
-
-    public void pomnozWektor(int n){
-        this.dx *= n;
-        this.dy *= n;
+    public int getDx() {
+        return dx;
     }
 
     @Override

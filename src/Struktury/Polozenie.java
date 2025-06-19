@@ -1,7 +1,7 @@
 package Struktury;
 
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Polozenie {
     private int x;
@@ -18,8 +18,24 @@ public class Polozenie {
         do {
             polozenie.setY(random.nextInt(Swiat.getWYSOKOSC()));
             polozenie.setX(random.nextInt(Swiat.getSZEROKOSC()));
-        } while (swiat.czyPolozenieWolne(polozenie));
+        } while (!swiat.czyPolozenieWolne(polozenie));
         return polozenie;
+    }
+
+    public List<Polozenie> znajdzWszystkieWolnePolozeniaDookola(Swiat swiat) {
+        return znajdzWszystkiePolozeniaDookola().stream().filter(swiat::czyPolozenieWolne).toList();
+    }
+
+        public List<Polozenie> znajdzWszystkiePolozeniaDookola(){
+        List<Przesuniecie> przesuniecia = Przesuniecie.RUCHY;
+        return przesuniecia.stream()
+                .filter(przesuniecie -> Swiat.czyPoleNaPlanszy(this, przesuniecie))
+                .map(przesuniecie -> {
+                    Polozenie kopia = kopiuj();
+                    kopia.przesun(przesuniecie);
+                    return kopia;
+                })
+                .toList();
     }
 
     //zakładamy, że jeśli wylosowane pole do przesunięcia jest poza planszą to zwierze się nie poruszy
