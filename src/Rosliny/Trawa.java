@@ -1,5 +1,6 @@
 package Rosliny;
 
+import Struktury.Organizm;
 import Struktury.Polozenie;
 import Struktury.Roslina;
 import Struktury.Swiat;
@@ -13,5 +14,7 @@ public class Trawa extends Roslina {
     }
 
     @Override
-    protected void akcja(){}
+    protected Organizm stworzDziecko(Swiat swiat, Polozenie polozenie) {
+        return new Trawa(swiat, polozenie);
+    }
 }

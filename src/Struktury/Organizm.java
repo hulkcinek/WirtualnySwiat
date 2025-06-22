@@ -1,8 +1,9 @@
 package Struktury;
 
 
+import java.util.Random;
+
 public abstract class Organizm {
-    protected int id;
     protected int sila;
     protected int inicjatywa;
     protected Polozenie polozenie;
@@ -26,8 +27,16 @@ public abstract class Organizm {
         }
     }
 
+    protected abstract Organizm stworzDziecko(Swiat swiat, Polozenie polozenie);
+
     protected void rysowanie(){
-        System.out.print(symbol + " ");
+        System.out.print(" " + symbol + " ");
+    }
+
+    protected boolean losujSzanse(int a, int omega) {
+        Random random = new Random();
+        int wylosowana = random.nextInt(omega);
+        return wylosowana < a;
     }
 
     public int getSila() {
@@ -53,6 +62,8 @@ public abstract class Organizm {
     public int getWiek() {
         return wiek;
     }
+
+    public abstract boolean czyZwierze();
 
     public void zwiekszWiek() {
         this.wiek++;

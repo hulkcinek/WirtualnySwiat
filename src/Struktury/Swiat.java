@@ -14,9 +14,9 @@ public class Swiat {
         new Swiat().start();
     }
 
-    private static final int WYSOKOSC = 10;
-    private static final int SZEROKOSC= 10;
-    List<Organizm> organizmy = new ArrayList<>();
+    private static final int WYSOKOSC = 20;
+    private static final int SZEROKOSC= 20;
+    public List<Organizm> organizmy = new ArrayList<>();
     List<Organizm> organizmyPowstaleWTejTurze = new ArrayList<>();
     Organizm[][] plansza = new Organizm[WYSOKOSC][SZEROKOSC];
 
@@ -32,11 +32,16 @@ public class Swiat {
     }
 
     private void stworzOrganizmy() {
-        final int iloscZwierzatDodawanych = 15;
+        final int iloscZwierzatDodawanych = 20;
         List<BiFunction<Swiat, Polozenie, Organizm>> konstruktory = List.of(
-                Wilk::new
+                Antylopa::new
+                ,CyberOwca::new
+                ,Lis::new
                 ,Owca::new
-                ,Antylopa::new
+                ,Wilk::new
+                ,Zolw::new
+                ,BarszczSosnowskiego::new
+                ,Mlecz::new
                 ,Trawa::new
         );
         Random random = new Random();
@@ -55,8 +60,8 @@ public class Swiat {
         }
         przeniesNoweOrganizmyNaDocelowaListe();
         zaktualizujWiekOrganizmow();
+        if (!DEBUG) rysujSwiat();
         System.out.printf("Na swiecie pozostaje %s organizmow\n", organizmy.size());
-        rysujSwiat();
     }
 
     private void przeniesNoweOrganizmyNaDocelowaListe() {
@@ -80,35 +85,44 @@ public class Swiat {
         if (iloscOrganizmow != iloscZajetychPol) System.out.println("Niezgodnosc: " + iloscZajetychPol + " " + iloscOrganizmow);
     }
 
-    public Organizm wezElementZPlanszyWPolozeniu(Polozenie polozenie){
+    public Organizm wezElementWPolozeniu(Polozenie polozenie){
         return plansza[polozenie.getY()][polozenie.getX()];
     }
 
     public void umieraOrganizm(Organizm umierajacy){
         organizmy.remove(umierajacy);
+        organizmyPowstaleWTejTurze.remove(umierajacy);
         System.out.printf("Umiera organizm: %s, ktory znajdowal sie na pozycji: %s\n", umierajacy.symbol, umierajacy.getPolozenie());
         zaktualizujPlansze();
     }
 
     private void uporzadkujOrganizmyNaLiscie() {
         organizmy.sort(Comparator
-                .comparingInt(Organizm::getInicjatywa).reversed()
+                .comparingInt(Organizm::getInicjatywa)
                 .thenComparing(Organizm::getWiek).reversed());
     }
 
     public void rysujSwiat(){
-        System.out.print("  ");
+        System.out.print("   ");
         for (int i = 0; i < SZEROKOSC; i++) {
-            System.out.print(i + " ");
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            }else {
+                System.out.print(i + " ");
+            }
         }
         System.out.println();
 
         for (int y = 0; y < plansza.length; y++) {
             Organizm[] wiersz = plansza[y];
-            System.out.print(y + " ");
+            if (y < 10) {
+                System.out.print(" " + y + " ");
+            }else {
+                System.out.print(y + " ");
+            }
             for (int x = 0; x < wiersz.length; x++) {
                 Organizm pole = wiersz[x];
-                if (pole == null) System.out.print(". ");
+                if (pole == null) System.out.print(" . ");
                 else pole.rysowanie();
             }
             System.out.println();

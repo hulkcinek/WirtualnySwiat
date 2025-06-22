@@ -25,7 +25,13 @@ public class Polozenie {
         return znajdzWszystkiePolozeniaDookola(1).stream().filter(swiat::czyPolozenieWolne).toList();
     }
 
-        public List<Polozenie> znajdzWszystkiePolozeniaDookola(int zasieg){
+    public double znajdzOdlegloscDo(Polozenie polozenie){
+        int roznicaX = this.x - polozenie.getX();
+        int roznicaY = this.y - polozenie.getY();
+        return Math.sqrt(Math.pow(roznicaX, 2) + Math.pow(roznicaY, 2));
+    }
+
+    public List<Polozenie> znajdzWszystkiePolozeniaDookola(int zasieg){
         List<Przesuniecie> przesuniecia = Przesuniecie.stworzRuchy(zasieg);
         return przesuniecia.stream()
                 .filter(przesuniecie -> Swiat.czyPoleNaPlanszy(this, przesuniecie))
