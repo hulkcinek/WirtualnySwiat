@@ -19,11 +19,12 @@ public abstract class Organizm {
 
     protected abstract void akcja();
 
-    protected void kolizja(Organizm atakowany){
-        if (this.sila >= atakowany.getSila()){
-            swiat.umieraOrganizm(atakowany);
-        } else {
+    protected void kolizja(Organizm atakujacy){
+        System.out.printf("Zaatakowany %s przez %s na pozycji %s\n", this.symbol, atakujacy.symbol, this.polozenie);
+        if (atakujacy.sila >= this.getSila()){
             swiat.umieraOrganizm(this);
+        } else {
+            swiat.umieraOrganizm(atakujacy);
         }
     }
 
@@ -67,6 +68,11 @@ public abstract class Organizm {
 
     public void zwiekszWiek() {
         this.wiek++;
+    }
+
+    public void zwiekszSile(int n){
+        System.out.printf("Sila %s w polozeniu %s zwieksza sie o %s\n", symbol, polozenie, n);
+        this.sila += n;
     }
 }
 

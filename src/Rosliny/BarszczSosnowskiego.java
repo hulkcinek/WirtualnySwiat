@@ -3,7 +3,6 @@ package Rosliny;
 import Struktury.*;
 import Zwierzeta.CyberOwca;
 
-import java.util.List;
 import java.util.Objects;
 
 public class BarszczSosnowskiego extends Roslina {
@@ -23,6 +22,14 @@ public class BarszczSosnowskiego extends Roslina {
                 .filter(organizm -> organizm.getClass() != CyberOwca.class)
                 .peek(organizm -> System.out.printf("Barszcz sosnowskiego zabija zwierze %s w polozeniu %s", organizm.getSymbol(), organizm.getPolozenie()))
                 .forEach(organizm -> swiat.umieraOrganizm(organizm));
+    }
+
+    @Override
+    protected void kolizja(Organizm atakujacy) {
+        super.kolizja(atakujacy);
+        if (!swiat.organizmy.contains(this))
+            if (atakujacy.getClass() != CyberOwca.class)
+                swiat.umieraOrganizm(atakujacy);
     }
 
     @Override

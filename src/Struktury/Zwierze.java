@@ -29,9 +29,8 @@ public abstract class Zwierze extends Organizm{
                 this.symbol, polozenie, wylosowanePolozenie,
                 zawartoscWylosowanegoPolozenia == null ? "." : zawartoscWylosowanegoPolozenia.symbol);
         if (zawartoscWylosowanegoPolozenia != null) {
-            kolizja(zawartoscWylosowanegoPolozenia);
-            if (swiat.wezElementWPolozeniu(wylosowanePolozenie) == null)
-                this.polozenie = wylosowanePolozenie;
+            zawartoscWylosowanegoPolozenia.kolizja(this);
+            if (swiat.wezElementWPolozeniu(wylosowanePolozenie) == null) this.polozenie = wylosowanePolozenie;
         } else {
             this.polozenie = wylosowanePolozenie;
         }
@@ -39,29 +38,32 @@ public abstract class Zwierze extends Organizm{
         if (swiat.DEBUG) swiat.rysujSwiat();
     }
 
-    protected void kolizja(Organizm atakowany) {
-        if (atakowany.getClass() == this.getClass()){
-            System.out.printf("Rozmnazanie %s z %s\n", atakowany.symbol, this.symbol);
-
-            List<Polozenie> mozliweMiejscaDlaDziecka = new ArrayList<>();
-            mozliweMiejscaDlaDziecka.addAll(this.polozenie.znajdzWszystkieWolnePolozeniaDookola(swiat));
-            mozliweMiejscaDlaDziecka.addAll(atakowany.polozenie.znajdzWszystkieWolnePolozeniaDookola(swiat));
-            mozliweMiejscaDlaDziecka = mozliweMiejscaDlaDziecka.stream().distinct().toList();
-
-            if (mozliweMiejscaDlaDziecka.isEmpty()){
-                System.out.println("Nie znaleziono miejsca dla dziecka");
-                return;
-            }
-
-            Random random = new Random();
-
-            Polozenie wylosowanePolozenieDlaDziecka = mozliweMiejscaDlaDziecka.get(random.nextInt(mozliweMiejscaDlaDziecka.size()));
-            Organizm dziecko = this.stworzDziecko(swiat, wylosowanePolozenieDlaDziecka);
-            swiat.rodziSieOrganizm(dziecko);
+    protected void kolizja(Organizm atakujacy) {
+        if (atakujacy.getClass() == this.getClass()){
+            rozmnazanie(atakujacy);
         }else {
-            System.out.printf("Zaatakowany %s przez %s na pozycji %s\n", atakowany.symbol, this.symbol, this.polozenie);
-            super.kolizja(atakowany);
+            super.kolizja(atakujacy);
         }
+    }
+
+    private void rozmnazanie(Organizm atakujacy) {
+        System.out.printf("Rozmnazanie %s z %s\n", atakujacy.symbol, this.symbol);
+
+        List<Polozenie> mozliweMiejscaDlaDziecka = new ArrayList<>();
+        mozliweMiejscaDlaDziecka.addAll(this.polozenie.znajdzWszystkieWolnePolozeniaDookola(swiat));
+        mozliweMiejscaDlaDziecka.addAll(atakujacy.polozenie.znajdzWszystkieWolnePolozeniaDookola(swiat));
+        mozliweMiejscaDlaDziecka = mozliweMiejscaDlaDziecka.stream().distinct().toList();
+
+        if (mozliweMiejscaDlaDziecka.isEmpty()){
+            System.out.println("Nie znaleziono miejsca dla dziecka");
+            return;
+        }
+
+        Random random = new Random();
+
+        Polozenie wylosowanePolozenieDlaDziecka = mozliweMiejscaDlaDziecka.get(random.nextInt(mozliweMiejscaDlaDziecka.size()));
+        Organizm dziecko = this.stworzDziecko(swiat, wylosowanePolozenieDlaDziecka);
+        swiat.rodziSieOrganizm(dziecko);
     }
 
     @Override

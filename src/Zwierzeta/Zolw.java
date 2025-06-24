@@ -21,6 +21,14 @@ public class Zolw extends Zwierze {
     }
 
     @Override
+    protected void kolizja(Organizm atakujacy) {
+        if (atakujacy.getSila() >= 5)
+            super.kolizja(atakujacy);
+        else
+            System.out.printf("%s w polozeniu %s odpiera atak %s\n", symbol, polozenie, atakujacy.getSymbol());
+    }
+
+    @Override
     protected Organizm stworzDziecko(Swiat swiat, Polozenie polozenie) {
         return new Zolw(swiat, polozenie);
     }

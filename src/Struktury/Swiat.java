@@ -32,17 +32,19 @@ public class Swiat {
     }
 
     private void stworzOrganizmy() {
-        final int iloscZwierzatDodawanych = 20;
+        final int iloscZwierzatDodawanych = 40;
         List<BiFunction<Swiat, Polozenie, Organizm>> konstruktory = List.of(
-                Antylopa::new
-                ,CyberOwca::new
-                ,Lis::new
+                Wilk::new
                 ,Owca::new
-                ,Wilk::new
+                ,Lis::new
                 ,Zolw::new
-                ,BarszczSosnowskiego::new
-                ,Mlecz::new
+                ,Antylopa::new
+                ,CyberOwca::new
                 ,Trawa::new
+                ,Mlecz::new
+                ,Guarana::new
+                ,WilczeJagody::new
+                ,BarszczSosnowskiego::new
         );
         Random random = new Random();
         for (int i = 0; i < iloscZwierzatDodawanych; i++) {
