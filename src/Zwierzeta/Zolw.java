@@ -21,7 +21,7 @@ public class Zolw extends Zwierze {
     }
 
     @Override
-    protected void kolizja(Organizm atakujacy) {
+    public void kolizja(Organizm atakujacy) {
         if (atakujacy.getSila() >= 5)
             super.kolizja(atakujacy);
         else

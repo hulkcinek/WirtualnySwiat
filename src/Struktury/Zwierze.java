@@ -38,7 +38,7 @@ public abstract class Zwierze extends Organizm{
         if (swiat.DEBUG) swiat.rysujSwiat();
     }
 
-    protected void kolizja(Organizm atakujacy) {
+    public void kolizja(Organizm atakujacy) {
         if (atakujacy.getClass() == this.getClass()){
             rozmnazanie(atakujacy);
         }else {

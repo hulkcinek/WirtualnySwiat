@@ -6,7 +6,6 @@ import Struktury.Swiat;
 import Struktury.Zwierze;
 
 import java.util.List;
-import java.util.Random;
 
 public class Antylopa extends Zwierze {
     public Antylopa(Swiat swiat, Polozenie polozenie) {
@@ -18,7 +17,7 @@ public class Antylopa extends Zwierze {
     }
 
     @Override
-    protected void kolizja(Organizm atakujacy) {
+    public void kolizja(Organizm atakujacy) {
         if (losujSzanse(1, 2)){
             List<Polozenie> wolnePolozenia = polozenie.znajdzWszystkieWolnePolozeniaDookola(swiat);
             if (wolnePolozenia.isEmpty()) {

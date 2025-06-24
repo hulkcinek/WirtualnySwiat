@@ -45,7 +45,10 @@ public class Polozenie {
 
     //zakładamy, że jeśli wylosowane pole do przesunięcia jest poza planszą to zwierze się nie poruszy
     public void przesun(Przesuniecie przesuniecie){
-        if (!Swiat.czyPoleNaPlanszy(this, przesuniecie)) return;
+        if (!Swiat.czyPoleNaPlanszy(this, przesuniecie)) {
+            System.out.printf("Przesuniecie %s z polozenia %s skutkowaloby ruchem poza plansze\n", przesuniecie, this);
+            return;
+        }
 
         this.y += przesuniecie.getDy();
         this.x += przesuniecie.getDx();

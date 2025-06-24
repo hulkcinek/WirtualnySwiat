@@ -19,7 +19,7 @@ public abstract class Organizm {
 
     protected abstract void akcja();
 
-    protected void kolizja(Organizm atakujacy){
+    public void kolizja(Organizm atakujacy){
         System.out.printf("Zaatakowany %s przez %s na pozycji %s\n", this.symbol, atakujacy.symbol, this.polozenie);
         if (atakujacy.sila >= this.getSila()){
             swiat.umieraOrganizm(this);

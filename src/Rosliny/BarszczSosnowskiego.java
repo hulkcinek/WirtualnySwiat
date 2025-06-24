@@ -25,7 +25,7 @@ public class BarszczSosnowskiego extends Roslina {
     }
 
     @Override
-    protected void kolizja(Organizm atakujacy) {
+    public void kolizja(Organizm atakujacy) {
         super.kolizja(atakujacy);
         if (!swiat.organizmy.contains(this))
             if (atakujacy.getClass() != CyberOwca.class)

@@ -14,25 +14,57 @@ public class Swiat {
         new Swiat().start();
     }
 
-    private static final int WYSOKOSC = 20;
-    private static final int SZEROKOSC= 20;
+    private static final int WYSOKOSC = 25;
+    private static final int SZEROKOSC= 25;
     public List<Organizm> organizmy = new ArrayList<>();
     List<Organizm> organizmyPowstaleWTejTurze = new ArrayList<>();
     Organizm[][] plansza = new Organizm[WYSOKOSC][SZEROKOSC];
+    Czlowiek czlowiek;
 
 
     private void start() {
         Scanner scanner = new Scanner(System.in);
         stworzOrganizmy();
+        czlowiek = new Czlowiek(this, Polozenie.losujPolozenie(this));
         rysujSwiat();
-        while (true){
-            scanner.next();
+        while (organizmy.contains(czlowiek)){
+            String wejscie = scanner.next();
+            wejscie = ujednolicWejscie(wejscie);
+            while (!czyPoprawneWejscie(wejscie)) {
+                System.out.println("Podaj poprawne wejscie");
+                wejscie = scanner.next();
+                wejscie = ujednolicWejscie(wejscie);
+            }
+            czlowiek.setWejscie(wejscie);
             wykonajTure();
         }
+        System.out.println("Gra sie zakonczyla bo umarl czlowiek");
+        System.out.printf("Trwala %s tur\n", czlowiek.getWiek());
+    }
+
+    private boolean czyPoprawneWejscie(String wejscie) {
+        List<String> poprawneWejscia = List.of(
+                "w",
+                "s",
+                "a",
+                "d",
+                "aw",
+                "as",
+                "dw",
+                "ds"
+        );
+        return poprawneWejscia.contains(wejscie);
+    }
+
+    private String ujednolicWejscie(String wejscie) {
+        wejscie = wejscie.toLowerCase();
+        char[] litery = wejscie.toCharArray();
+        Arrays.sort(litery);
+        return new String(litery);
     }
 
     private void stworzOrganizmy() {
-        final int iloscZwierzatDodawanych = 40;
+        final int iloscOrganizmowDodawanych = SZEROKOSC*WYSOKOSC/10;
         List<BiFunction<Swiat, Polozenie, Organizm>> konstruktory = List.of(
                 Wilk::new
                 ,Owca::new
@@ -47,9 +79,9 @@ public class Swiat {
                 ,BarszczSosnowskiego::new
         );
         Random random = new Random();
-        for (int i = 0; i < iloscZwierzatDodawanych; i++) {
+        for (int i = 0; i < iloscOrganizmowDodawanych; i++) {
             konstruktory.get(random.nextInt(konstruktory.size()))
-                    .apply(this, Polozenie.losujPolozenie(this));
+                        .apply(this, Polozenie.losujPolozenie(this));
         }
     }
 
@@ -64,6 +96,7 @@ public class Swiat {
         zaktualizujWiekOrganizmow();
         if (!DEBUG) rysujSwiat();
         System.out.printf("Na swiecie pozostaje %s organizmow\n", organizmy.size());
+        System.out.printf("Sila czlowieka wynosi teraz %s\n", czlowiek.getSila());
     }
 
     private void przeniesNoweOrganizmyNaDocelowaListe() {

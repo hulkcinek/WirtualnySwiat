@@ -14,7 +14,7 @@ public class Guarana extends Roslina {
     }
 
     @Override
-    protected void kolizja(Organizm atakujacy) {
+    public void kolizja(Organizm atakujacy) {
         super.kolizja(atakujacy);
         atakujacy.zwiekszSile(3);
     }

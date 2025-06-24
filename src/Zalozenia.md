@@ -3,6 +3,7 @@
 - symbole organizmów to pierwsza litera ich nazwy (w przypadku duplikatów, kolejna)
   - mała litera oznacza roślinę
   - wielka litera oznacza zwierzę
+  - wyjątkowo człowiek jest reprezentowany przez literę X
 - zapis położeń i przesunięć to odpowiednio (x, y) i [x, y]
 - ruch na ukos jest liczony jako jeden "krok"
 - próba wykonania ruchu zawsze kończy się przesunięciem (niemożliwy jest powrót na to samo miejsce w trakcie jednej tury)
