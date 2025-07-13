@@ -1,8 +1,9 @@
-package Zwierzeta;
+package zwierzeta;
 
-import Struktury.Polozenie;
-import Struktury.Swiat;
-import Struktury.Zwierze;
+import struktury.Gatunek;
+import struktury.Polozenie;
+import struktury.Swiat;
+import struktury.Zwierze;
 
 public class Wilk extends Zwierze {
     public Wilk(Swiat swiat, Polozenie polozenie) {
@@ -10,6 +11,7 @@ public class Wilk extends Zwierze {
         this.sila = 9;
         this.inicjatywa = 5;
         this.symbol = 'W';
+        this.gatunek = Gatunek.WILK;
     }
 
     @Override

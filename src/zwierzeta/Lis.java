@@ -1,9 +1,6 @@
-package Zwierzeta;
+package zwierzeta;
 
-import Struktury.Organizm;
-import Struktury.Polozenie;
-import Struktury.Swiat;
-import Struktury.Zwierze;
+import struktury.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ public class Lis extends Zwierze {
         this.sila = 3;
         this.inicjatywa = 7;
         this.symbol = 'L';
+        this.gatunek = Gatunek.LIS;
     }
 
     @Override

@@ -1,9 +1,6 @@
-package Rosliny;
+package rosliny;
 
-import Struktury.Organizm;
-import Struktury.Polozenie;
-import Struktury.Roslina;
-import Struktury.Swiat;
+import struktury.*;
 
 public class Mlecz extends Roslina {
 
@@ -11,6 +8,7 @@ public class Mlecz extends Roslina {
         super(swiat, polozenie);
         this.sila = 0;
         this.symbol = 'm';
+        this.gatunek = Gatunek.MLECZ;
     }
 
     @Override

@@ -6,8 +6,11 @@
   - wyjątkowo człowiek jest reprezentowany przez literę X
 - zapis położeń i przesunięć to odpowiednio (x, y) i [x, y]
 - ruch na ukos jest liczony jako jeden "krok"
-- próba wykonania ruchu zawsze kończy się przesunięciem (niemożliwy jest powrót na to samo miejsce w trakcie jednej tury)
 - zasieg ruchu N oznacza, że zwierzę może przejść na jakiekolwiek pole, do którego może dostać się w maksymalnie N ruchów, czyli wykonanych może zostać mniej "kroków" niż pozwalałby na to zasięg ruchu
-- szansa na udanie się próby rozprzestrzeniania roślin w trakcie akcji to 1 do 6
-
-# TODO
+- szansa na udanie się próby rozprzestrzeniania roślin w trakcie akcji to 1 do 10
+- specjalne umiejetności człowieka aktywowane są zamiast jego ruchu za pomocą cyfr odpowiednio:
+  - 1 - Nieśmiertelność
+  - 2 - Magiczny Eliksir
+  - 3 - Szybkość antylopy
+  - 4 - Tarcza Alzura
+  - 5 - Całopalenie

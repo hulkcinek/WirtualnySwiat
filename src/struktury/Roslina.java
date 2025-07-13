@@ -1,7 +1,6 @@
-package Struktury;
+package struktury;
 
 import java.util.List;
-import java.util.Random;
 
 public abstract class Roslina extends Organizm{
 
@@ -11,14 +10,13 @@ public abstract class Roslina extends Organizm{
     }
 
     protected void akcja() {
-        Random random = new Random();
         List<Polozenie> dostepnePolozenia = polozenie.znajdzWszystkieWolnePolozeniaDookola(swiat);
         if (dostepnePolozenia.isEmpty()) {
             System.out.printf("Brak dostepnych miejsc do rozprzestrzeniania sie dla %s w polozeniu %s\n", symbol, polozenie);
             return;
         }
 
-        if (!losujSzanse(1, 6)){
+        if (!losujSzanse(1, 10)){
             System.out.printf("Proba losowania dla rozprzestrzeniania zakonczona niepowodzeniam dla %s w polozeniu %s\n",
                     symbol, polozenie);
             return;
@@ -31,11 +29,6 @@ public abstract class Roslina extends Organizm{
 
         Organizm dziecko = this.stworzDziecko(swiat, wylosowanePolozenie);
         swiat.rodziSieOrganizm(dziecko);
-        if (swiat.DEBUG) swiat.rysujSwiat();
-    }
-
-    @Override
-    public boolean czyZwierze() {
-        return false;
+        if (Swiat.DEBUG) swiat.rysujSwiat();
     }
 }

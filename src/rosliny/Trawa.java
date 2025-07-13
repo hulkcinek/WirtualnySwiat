@@ -1,9 +1,6 @@
-package Rosliny;
+package rosliny;
 
-import Struktury.Organizm;
-import Struktury.Polozenie;
-import Struktury.Roslina;
-import Struktury.Swiat;
+import struktury.*;
 
 public class Trawa extends Roslina {
 
@@ -11,6 +8,7 @@ public class Trawa extends Roslina {
         super(swiat, polozenie);
         this.sila = 0;
         this.symbol = 't';
+        this.gatunek = Gatunek.TRAWA;
     }
 
     @Override

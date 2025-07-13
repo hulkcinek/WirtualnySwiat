@@ -1,4 +1,4 @@
-package Struktury;
+package struktury;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,25 +6,14 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Przesuniecie {
-    public static final List<Przesuniecie> RUCHY = List.of(
-            new Przesuniecie(0, 1),
-            new Przesuniecie(0, -1),
-            new Przesuniecie(1, 0),
-            new Przesuniecie(-1, 0),
-            new Przesuniecie(-1, -1),
-            new Przesuniecie(-1, 1),
-            new Przesuniecie(1, -1),
-            new Przesuniecie(1, 1)
-    );
     private int dx;
     private int dy;
+    private static final Random random = new Random();
 
     public Przesuniecie(int dx, int dy) {
         this.dx = dx;
         this.dy = dy;
     }
-
-    //zakładamy, że przez "sąsiednie pola" rozumiemy tylko te stykające się ze sobą krawędziami (nie rogami)
 
     public static List<Przesuniecie> stworzRuchy(int zasiegRuchu){
         List<Przesuniecie> ruchy = new ArrayList<>();
@@ -38,7 +27,6 @@ public class Przesuniecie {
     }
     
     public static Przesuniecie losujPrzesuniecie(){
-        Random random = new Random();
         List<Przesuniecie> ruchy = stworzRuchy(1);
         return ruchy.get(random.nextInt(ruchy.size()));
     }

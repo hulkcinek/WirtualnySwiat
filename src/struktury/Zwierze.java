@@ -1,4 +1,4 @@
-package Struktury;
+package struktury;
 
 import java.util.*;
 
@@ -10,18 +10,16 @@ public abstract class Zwierze extends Organizm{
         super(swiat, polozenie);
     }
 
-
     protected void akcja(){
         List<Polozenie> dostepnePolozenia = polozenie.znajdzWszystkiePolozeniaDookola(zasiegRuchu);
         ruch(dostepnePolozenia);
     }
 
-    protected void ruch(List<Polozenie> dostepnePolozenia) {
+    public void ruch(List<Polozenie> dostepnePolozenia) {
         if (dostepnePolozenia.isEmpty()){
             System.out.printf("%s nie znalazl zadnego mozliwego ruchu do wykonania z polozenia %s\n", symbol, polozenie);
             return;
         }
-        Random random = new Random();
         Polozenie wylosowanePolozenie = dostepnePolozenia.get(random.nextInt(dostepnePolozenia.size()));
         Organizm zawartoscWylosowanegoPolozenia = swiat.wezElementWPolozeniu(wylosowanePolozenie);
 
@@ -35,11 +33,12 @@ public abstract class Zwierze extends Organizm{
             this.polozenie = wylosowanePolozenie;
         }
         swiat.zaktualizujPlansze();
-        if (swiat.DEBUG) swiat.rysujSwiat();
+        if (Swiat.DEBUG) swiat.rysujSwiat();
     }
 
+    @Override
     public void kolizja(Organizm atakujacy) {
-        if (atakujacy.getClass() == this.getClass()){
+        if (atakujacy.gatunek == this.gatunek){
             rozmnazanie(atakujacy);
         }else {
             super.kolizja(atakujacy);
@@ -59,15 +58,8 @@ public abstract class Zwierze extends Organizm{
             return;
         }
 
-        Random random = new Random();
-
         Polozenie wylosowanePolozenieDlaDziecka = mozliweMiejscaDlaDziecka.get(random.nextInt(mozliweMiejscaDlaDziecka.size()));
         Organizm dziecko = this.stworzDziecko(swiat, wylosowanePolozenieDlaDziecka);
         swiat.rodziSieOrganizm(dziecko);
-    }
-
-    @Override
-    public boolean czyZwierze() {
-        return true;
     }
 }

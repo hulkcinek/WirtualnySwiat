@@ -1,8 +1,9 @@
-package Zwierzeta;
+package zwierzeta;
 
-import Struktury.Polozenie;
-import Struktury.Swiat;
-import Struktury.Zwierze;
+import struktury.Gatunek;
+import struktury.Polozenie;
+import struktury.Swiat;
+import struktury.Zwierze;
 
 public class Owca extends Zwierze {
     public Owca(Swiat swiat, Polozenie polozenie) {
@@ -10,6 +11,7 @@ public class Owca extends Zwierze {
         this.sila = 4;
         this.inicjatywa = 4;
         this.symbol = 'O';
+        this.gatunek = Gatunek.OWCA;
     }
 
     @Override

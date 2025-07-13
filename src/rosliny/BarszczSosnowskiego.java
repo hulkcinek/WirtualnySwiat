@@ -1,7 +1,6 @@
-package Rosliny;
+package rosliny;
 
-import Struktury.*;
-import Zwierzeta.CyberOwca;
+import struktury.*;
 
 import java.util.Objects;
 
@@ -11,6 +10,7 @@ public class BarszczSosnowskiego extends Roslina {
         super(swiat, polozenie);
         this.sila = 10;
         this.symbol = 'b';
+        this.gatunek = Gatunek.BARSZCZSOSNOWSKIEGO;
     }
 
     @Override
@@ -18,18 +18,18 @@ public class BarszczSosnowskiego extends Roslina {
         polozenie.znajdzWszystkiePolozeniaDookola(1).stream()
                 .map(swiat::wezElementWPolozeniu)
                 .filter(Objects::nonNull)
-                .filter(Organizm::czyZwierze)
-                .filter(organizm -> organizm.getClass() != CyberOwca.class)
-                .peek(organizm -> System.out.printf("Barszcz sosnowskiego zabija zwierze %s w polozeniu %s", organizm.getSymbol(), organizm.getPolozenie()))
+                .filter(Zwierze.class::isInstance)
+                .filter(organizm -> organizm.getGatunek() != Gatunek.CYBEROWCA)
+                .peek(organizm -> System.out.printf("Barszcz sosnowskiego zabija zwierze %s w polozeniu %s\n", organizm.getSymbol(), organizm.getPolozenie()))
                 .forEach(organizm -> swiat.umieraOrganizm(organizm));
     }
 
     @Override
     public void kolizja(Organizm atakujacy) {
         super.kolizja(atakujacy);
-        if (!swiat.organizmy.contains(this))
-            if (atakujacy.getClass() != CyberOwca.class)
-                swiat.umieraOrganizm(atakujacy);
+        if (this.czyMartwy() && atakujacy.getGatunek() != Gatunek.CYBEROWCA) {
+            swiat.umieraOrganizm(atakujacy);
+        }
     }
 
     @Override

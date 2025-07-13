@@ -1,24 +1,20 @@
-package Rosliny;
+package rosliny;
 
-import Struktury.Organizm;
-import Struktury.Polozenie;
-import Struktury.Roslina;
-import Struktury.Swiat;
-import Zwierzeta.CyberOwca;
+import struktury.*;
 
 public class WilczeJagody extends Roslina {
 
     public WilczeJagody(Swiat swiat, Polozenie polozenie) {
         super(swiat, polozenie);
         this.sila = 99;
-        this.symbol = 'j';
+        this.symbol = 'w';
+        this.gatunek = Gatunek.WILCZEJAGODY;
     }
 
     @Override
     public void kolizja(Organizm atakujacy) {
         super.kolizja(atakujacy);
-        if (!swiat.organizmy.contains(this))
-            if (atakujacy.getClass() != CyberOwca.class)
+        if (this.czyMartwy() && atakujacy.getGatunek() != Gatunek.CYBEROWCA)
                 swiat.umieraOrganizm(atakujacy);
     }
 

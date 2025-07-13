@@ -1,9 +1,6 @@
-package Zwierzeta;
+package zwierzeta;
 
-import Struktury.Organizm;
-import Struktury.Polozenie;
-import Struktury.Swiat;
-import Struktury.Zwierze;
+import struktury.*;
 
 public class Zolw extends Zwierze {
 
@@ -12,6 +9,7 @@ public class Zolw extends Zwierze {
         this.sila = 2;
         this.inicjatywa = 1;
         this.symbol = 'Z';
+        this.gatunek = Gatunek.ZOLW;
     }
 
     @Override

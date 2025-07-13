@@ -1,10 +1,11 @@
-package Struktury;
+package struktury;
 
 import java.util.*;
 
 public class Polozenie {
     private int x;
     private int y;
+    private static final Random random = new Random();
 
     public Polozenie(int x, int y) {
         this.x = x;
@@ -12,11 +13,10 @@ public class Polozenie {
     }
 
     public static Polozenie losujPolozenie(Swiat swiat) {
-        Random random = new Random();
         Polozenie polozenie = new Polozenie(-1, -1);
         do {
-            polozenie.setY(random.nextInt(Swiat.getWYSOKOSC()));
-            polozenie.setX(random.nextInt(Swiat.getSZEROKOSC()));
+            polozenie.setY(random.nextInt(Swiat.WYSOKOSC));
+            polozenie.setX(random.nextInt(Swiat.SZEROKOSC));
         } while (!swiat.czyPolozenieWolne(polozenie));
         return polozenie;
     }
@@ -43,7 +43,6 @@ public class Polozenie {
                 .toList();
     }
 
-    //zakładamy, że jeśli wylosowane pole do przesunięcia jest poza planszą to zwierze się nie poruszy
     public void przesun(Przesuniecie przesuniecie){
         if (!Swiat.czyPoleNaPlanszy(this, przesuniecie)) {
             System.out.printf("Przesuniecie %s z polozenia %s skutkowaloby ruchem poza plansze\n", przesuniecie, this);

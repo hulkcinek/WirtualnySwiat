@@ -1,9 +1,6 @@
-package Zwierzeta;
+package zwierzeta;
 
-import Struktury.Organizm;
-import Struktury.Polozenie;
-import Struktury.Swiat;
-import Struktury.Zwierze;
+import struktury.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ public class Antylopa extends Zwierze {
         this.inicjatywa = 4;
         this.symbol = 'A';
         this.zasiegRuchu = 2;
+        this.gatunek = Gatunek.ANTYLOPA;
     }
 
     @Override

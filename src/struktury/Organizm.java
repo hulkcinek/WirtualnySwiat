@@ -1,15 +1,18 @@
-package Struktury;
+package struktury;
 
 
 import java.util.Random;
 
 public abstract class Organizm {
+    protected Gatunek gatunek;
     protected int sila;
     protected int inicjatywa;
     protected Polozenie polozenie;
     protected Swiat swiat;
     protected char symbol;
     protected int wiek = 0;
+    private boolean zywy = true;
+    Random random = new Random();
 
     protected Organizm(Swiat swiat, Polozenie polozenie) {
         this.swiat = swiat;
@@ -35,7 +38,6 @@ public abstract class Organizm {
     }
 
     protected boolean losujSzanse(int a, int omega) {
-        Random random = new Random();
         int wylosowana = random.nextInt(omega);
         return wylosowana < a;
     }
@@ -64,8 +66,6 @@ public abstract class Organizm {
         return wiek;
     }
 
-    public abstract boolean czyZwierze();
-
     public void zwiekszWiek() {
         this.wiek++;
     }
@@ -73,6 +73,18 @@ public abstract class Organizm {
     public void zwiekszSile(int n){
         System.out.printf("Sila %s w polozeniu %s zwieksza sie o %s\n", symbol, polozenie, n);
         this.sila += n;
+    }
+
+    public void smierc() {
+        this.zywy = false;
+    }
+
+    public boolean czyMartwy() {
+        return !zywy;
+    }
+
+    public Gatunek getGatunek() {
+        return gatunek;
     }
 }
 
